@@ -1,0 +1,6 @@
+if SHIELD_XYLOULP
+
+config ZMK_KEYBOARD_NAME
+    default "xyloulp"
+
+endif # SHIELD_XYLOULP
