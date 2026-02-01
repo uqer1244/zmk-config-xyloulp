@@ -1,22 +1,44 @@
+/* xyloulp.keymap */
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+
+/* 레이어 정의 */
+#define DEF 0
+#define SYS 1
 
 / {
     keymap {
         compatible = "zmk,keymap";
 
+        /* 기본 레이어: 모든 키가 단순 문자로 작동 (테스트용) */
         default_layer {
             bindings = <
-    // Left Hand (R0~R2)
-    &kp ESC      &kp Q      &kp W      &kp E      &kp R      &kp T
-    &kp TAB      &kp A      &kp S      &kp D      &kp F      &kp G
-    &none      &none      &kp Z      &kp X      &kp C      &kp V
+/* LEFT (R0~R2) ----------------------------------------------------------- */
+    &kp Q      &kp W      &kp E      &kp R      &kp T      &kp ESC
+    &kp A      &kp S      &kp D      &kp F      &kp G      &mo SYS   /* TAB 대신 레이어 키 배치 */
+    &kp Z      &kp X      &kp C      &kp V      &kp B      &kp LSHIFT
 
-    // Right Hand (R3~R5)
-    &kp Y      &kp U      &kp I      &kp O          &kp P         &kp BSPC
-    &kp H      &kp J      &kp K      &kp L          &kp ENTER     &kp RSHIFT
-    &kp B      &kp N      &kp M      &kp COMMA      &kp DOT       &none 
+/* RIGHT (R3~R5) ---------------------------------------------------------- */
+    &kp Y      &kp U      &kp I      &kp O      &kp P      &kp BSPC
+    &kp H      &kp J      &kp K      &kp L      &kp SEMI   &kp RET
+    &kp N      &kp M      &kp COMMA  &kp DOT    &kp SLASH  &kp RSHIFT
+            >;
+        };
+
+        /* 시스템 레이어: 블루투스 초기화 및 부트로더 진입용 */
+        system_layer {
+            bindings = <
+/* LEFT ------------------------------------------------------------------- */
+    &kp N1     &kp N2     &kp N3     &kp N4     &kp N5     &kp GRAVE
+    &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &trans
+    &bootloader &sys_reset &none      &none      &none      &none
+
+/* RIGHT ------------------------------------------------------------------ */
+    &kp N6     &kp N7     &kp N8     &kp N9     &kp N0     &kp DEL
+    &none      &none      &none      &none      &none      &none
+    &none      &none      &none      &none      &bootloader &soft_off
             >;
         };
     };
